@@ -110,19 +110,60 @@ CREATE TABLE IF NOT EXISTS `proyecto_bdm`.`curso` (
   
   alter table niveles modify column idnivel INT NOT NULL AUTO_INCREMENT;
   
-  alter table niveles modify column `idnivel` int auto_increment;
+  alter table niveles drop column `idnivel` int auto_increment;
   
   select * from niveles;
   
-  CREATE TABLE niveles (
-  `idnivel` int(11) NOT NULL,
+  
+  
+  drop table Niveles;
+  
+  
+  
+  CREATE TABLE Niveles (
+  `idnivel` int auto_increment,
   `nivel_nombre` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nivelpadre_id` int,
-  `Curso` int,
+   `Curso` int,
   foreign key(Curso)references curso(ID_Curso),
+   primary key(idnivel),
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp()
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+drop table Subniveles;
+
+
+
+CREATE TABLE Subniveles (
+ id_video INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  path_video VARCHAR(100) NOT NULL,
+  nombre_video VARCHAR(100) NOT NULL,
+  type_video VARCHAR(50) NOT NULL,
+  content_type VARCHAR(50) NOT NULL,
+  NivelPadre int,
+  foreign key(NivelPadre)references Niveles(`idnivel`),
+  
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp()
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  
+  
+  
+  drop table Subniveles;
+
+
+CREATE TABLE SubCate (
+  
+  `Subcate_nombre` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+ cate int,
+  foreign key(cate)references Cate(idCate),
   `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp()
   
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+
   
   
   
